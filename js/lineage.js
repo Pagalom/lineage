@@ -5,22 +5,22 @@ function Lineage() {
     initNightMode();
     initSlider();
     config = conf;
-    year = config.startYear;
+    current_time = config.startDate;
     initShowDead(config.showDead);
     document.getElementById('search').value = conf.filter;
   }
 
   // Will be overwritten by `lin()`
   var config = {
-    startYear:2014,
-    endYear: 2014,
+    startDate:2014,
+    endDate: 2014,
     speed: 100,
     debug: false
   };
 
   timeStart('init', config);
 
-  var year = 1800;
+  var current_time = 1800;
   var showDead = true;
 
   var CLUSTER_COL_SPACING = 10;
@@ -55,7 +55,7 @@ function Lineage() {
       .attr("height", height);
 
   var audio = new Audio('music/graph.mp3');
-  var yearIncrement = 0;
+  var dateIncrement = 0;
   var filters = $('#search').val();
   var searchRadius = 40;
   var simulation = d3.forceSimulation();
@@ -180,7 +180,7 @@ function Lineage() {
   function mousemoved() {
     var a = this.parentNode, m = d3.mouse(this), d = simulation.find(m[0] - width / 2, m[1] - height / 2, searchRadius);
     if (!d) {
-      hideMemberDetails(); 
+      hideMemberDetails();
     }
     else {
       highlightNode(d, m);
@@ -212,12 +212,12 @@ function Lineage() {
   function loop() {
     timeStart("loop", config);
     resizeScreen();
-    var oldYear = year;
-    year = advanceYear(year);
+    var oldcurrent_time = current_time;
+    current_time = incrementDate(current_time);
     updateSlider();
     updateFilter();
 
-    if (year != oldYear) {
+    if (current_time != oldcurrent_time) {
       forceRefresh = true;
     }
 
@@ -243,33 +243,11 @@ function Lineage() {
   function addRemoveNode(n) {
     // Only add people who have been born at this time
     if (n.birthDate != null) {
-      var birthYear = n.birthDate.substring(0, 4);
-      if (
-        nodes.indexOf(n) == -1 &&
-        birthYear <= year
-      ) {
+      if (n.birthDate <= current_time && (showDead || n.deathDate > current_time)) {
         nodes.push(n);
       }
-      else if (
-        nodes.indexOf(n) != -1 &&
-        (birthYear > year)
-      ) {
+      else if (nodes.indexOf(n) != -1 && (n.birthDate >= current_time || (n.deathDate < current_time && !showDead))) {
         nodes.splice(nodes.indexOf(n), 1);
-      }
-    }
-
-    // Remove dead people
-    if (!showDead) {
-      if (n.deathDate != null && n.deathDate != "") {
-        var deathYear = Number(n.deathDate.substring(0, 4));
-        if (isNaN(deathYear)) return;
-
-        if (
-          nodes.indexOf(n) != -1 &&
-          deathYear < year
-        ) {
-          nodes.splice(nodes.indexOf(n), 1);
-        }
       }
     }
   }
@@ -329,12 +307,13 @@ function Lineage() {
   }
 
 
-  function advanceYear(year) {
-    year += yearIncrement;
-    if (year >= config.endYear) {
-      year = config.endYear;
+  function incrementDate(current_time) {
+    current_time.setDate(current_time.getDate() + dateIncrement);
+    if (current_time >= config.endDate) {
+      current_time = config.endDate;
     }
-    return year;
+    console.log(current_time, dateIncrement);
+    return current_time;
   }
 
 
@@ -347,7 +326,7 @@ function Lineage() {
 
 
   function updateSlider() {
-    position = ((year - config.startYear) / (config.endYear - config.startYear)) * 100;
+    position = ((current_time - config.startDate) / (config.endDate - config.startDate)) * 100;
     $("#yearSlider").val(position);
   }
 
@@ -358,7 +337,7 @@ function Lineage() {
   function initSlider() {
     $('#yearSlider').on('change', function(){
       position = $("#yearSlider").val();
-      year = Math.round(((config.endYear - config.startYear) * (position/100)) + config.startYear);
+      current_time = Math.round(((config.endDate - config.startDate) * (position/100)) + config.startDate);
     });
   }
 
@@ -405,8 +384,8 @@ function Lineage() {
   }
 
 
-  function updateYear(year) {
-    $('#year').html(year)
+  function updateYear(current_time) {
+    $('#year').html(current_time)
       .css('left', width/2 - 105)
       .css('top', height - 140);
   }
@@ -423,7 +402,7 @@ function Lineage() {
 
 
   function restart() {
-    updateYear(year);
+    updateYear(current_time);
     users = d3.nest()
       .key(function(d) { return d.id; })
       .entries(nodes);
@@ -609,18 +588,18 @@ function Lineage() {
     audio.pause();
   }
 
-  lin.setYear = function(value) {
-    year = value;
+  lin.setDate = function(value) {
+    current_time = new Date(value);
     forceRefresh = true;
   }
 
   lin.moveYear = function(value) {
-    year += value
+    current_time += value
     forceRefresh = true;
   }
 
-  lin.setYearIncrement = function(value) {
-    yearIncrement = value;
+  lin.setDateIncrement = function(value) {
+    dateIncrement = value;
     forceRefresh = true;
   }
 

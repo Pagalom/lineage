@@ -15,14 +15,19 @@
     var lineage = null;
     var menuStatus = false;
     function start() {
+      console.log("hi");
       $.getJSON("config/config.json", function(config) {
-          config.startYear = isNaN(startYear) ? config.startYear : startYear;
+          console.log("here");
+          config.startDate = isNaN(startDate) ? new Date(config.startDate) : startDate;
+          config.endDate = new Date(config.endDate);
+          console.log(config);
           lineage = new Lineage;
           lineage(config);
           lineage.loadJson(config.data);
 
-          if (config.menuDefaultOpen) toggleMenu();
+          //if (config.menuDefaultOpen) toggleMenu();
       });
+      console.log("hmmmm");
     }
 
     function toggleMenu() {
@@ -33,7 +38,7 @@
     }
 
     const urlParams = new URLSearchParams(window.location.search);
-    const startYear = parseInt(urlParams.get('startYear'));
+    const startDate = parseInt(urlParams.get('startDate'));
 
   </script>
 
@@ -79,13 +84,13 @@
     </div>
     <div class="time">
       <button class="btn btn-default time__button" id="firstButton"
-        onClick="lineage.setYear(1800)">First</button>
+        onClick="lineage.setDate('1800-01-01 00:00:00')">First</button>
       <button class="btn btn-default time__button" id="playButton"
-        onClick="lineage.setYearIncrement(1);lineage.playMusic();">
+        onClick="lineage.setDateIncrement(365);lineage.playMusic();">
         Play
       </button>
       <button class="btn btn-default time__button" id="stopButton"
-        onClick="lineage.setYearIncrement(0);lineage.pauseMusic();">
+        onClick="lineage.setDateIncrement(0);lineage.pauseMusic();">
         Stop
       </button>
       <button class="btn btn-default time__button" id="lastButton"
@@ -108,4 +113,3 @@
   </div>
 </body>
 </html>
-

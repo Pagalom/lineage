@@ -32,11 +32,11 @@ input field.
 This key allows you to set an initial filter which will be active when the web
 view is freshly loaded.
 
-### `startYear`
-StartYear
+### `startDate`
+startDate
 
-### `endYear`
-EndYear
+### `endDate`
+endDate
 
 ### `speed`
 How many milliseconds does one year take when you hit the "Play" button?
