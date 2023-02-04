@@ -1,9 +1,9 @@
 {
   "data": "data/familyData.json",
   "filter": "",
-  "startDate": "2014-01-01 00:00:00",
+  "startDate": "2010-01-01 00:00:00",
   "endDate": "2014-01-01 00:00:00",
-  "speed": 100,
+  "speed": 1000,
   "debug": true,
   "menuDefaultOpen": true,
   "showDead": true

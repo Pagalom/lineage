@@ -236,7 +236,7 @@ function Lineage() {
 
     restart();
     timeEnd("loop", config);
-    console.log("total nodes", nodes.length)
+    console.log("total nodes", nodes.length, dateIncrement)
     forceRefresh = false;
   }
 
@@ -395,9 +395,10 @@ function Lineage() {
 
 
   function updateYear(current_time) {
+    debugger;
     let formatted_time = current_time;
     if (current_time > 0) {
-      formatted_time = new Date(current_time).toLocaleString("en-US", {
+      formatted_time = new Date(current_time*1000).toLocaleString("en-US", {
         day: "numeric",
         month: "short",
         year: "numeric"
