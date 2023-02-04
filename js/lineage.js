@@ -5,7 +5,9 @@ function Lineage() {
     initNightMode();
     initSlider();
     config = conf;
-    current_time = config.startDate;
+    current_time = d2t(config.startDate);
+    end_time = d2t(config.endDate);
+    config.startTime = d2t(config.startDate);
     initShowDead(config.showDead);
     document.getElementById('search').value = conf.filter;
   }
@@ -21,6 +23,7 @@ function Lineage() {
   timeStart('init', config);
 
   var current_time = 1800;
+  var end_time = 0;
   var showDead = true;
 
   var CLUSTER_COL_SPACING = 10;
@@ -67,6 +70,9 @@ function Lineage() {
   // Do i have to re-populate `nodes` and `links` in `loop()`?
   var forceRefresh = true;
 
+  function d2t(dateString) {
+    return Math.floor(new Date(dateString).getTime() / 1000);
+  }
 
   function initShowDead(value) {
     showDead = value;
@@ -230,6 +236,7 @@ function Lineage() {
 
     restart();
     timeEnd("loop", config);
+    console.log("total nodes", nodes.length)
     forceRefresh = false;
   }
 
@@ -242,11 +249,11 @@ function Lineage() {
     */
   function addRemoveNode(n) {
     // Only add people who have been born at this time
-    if (n.birthDate != null) {
-      if (n.birthDate <= current_time && (showDead || n.deathDate > current_time)) {
+    if (n.birthTime != null) {
+      if (nodes.indexOf(n) == -1 && (n.birthTime <= current_time && (showDead || n.deathTime > current_time))) {
         nodes.push(n);
       }
-      else if (nodes.indexOf(n) != -1 && (n.birthDate >= current_time || (n.deathDate < current_time && !showDead))) {
+      else if (nodes.indexOf(n) != -1 && (n.birthTime >= current_time || (n.deathTime < current_time && !showDead))) {
         nodes.splice(nodes.indexOf(n), 1);
       }
     }
@@ -308,11 +315,12 @@ function Lineage() {
 
 
   function incrementDate(current_time) {
-    current_time.setDate(current_time.getDate() + dateIncrement);
-    if (current_time >= config.endDate) {
-      current_time = config.endDate;
+    current_time += dateIncrement;
+    if (current_time >= end_time) {
+      current_time = end_time;
     }
-    console.log(current_time, dateIncrement);
+    console.log(current_time);
+
     return current_time;
   }
 
@@ -326,7 +334,7 @@ function Lineage() {
 
 
   function updateSlider() {
-    position = ((current_time - config.startDate) / (config.endDate - config.startDate)) * 100;
+    position = ((current_time - config.startTime) / (end_time - config.startTime)) * 100;
     $("#yearSlider").val(position);
   }
 
@@ -337,7 +345,7 @@ function Lineage() {
   function initSlider() {
     $('#yearSlider').on('change', function(){
       position = $("#yearSlider").val();
-      current_time = Math.round(((config.endDate - config.startDate) * (position/100)) + config.startDate);
+      current_time = Math.round(((end_time - config.startTime) * (position/100)) + config.startTime);
     });
   }
 
@@ -355,6 +363,8 @@ function Lineage() {
         data.nodes.splice(i, 1);
         i--;
       }
+      data.nodes[i].birthTime = d2t(data.nodes[i].birthDate);
+      data.nodes[i].deathTime = d2t(data.nodes[i].deathDate);
     }
 
     // link directly instead of using indices
@@ -385,7 +395,16 @@ function Lineage() {
 
 
   function updateYear(current_time) {
-    $('#year').html(current_time)
+    let formatted_time = current_time;
+    if (current_time > 0) {
+      formatted_time = new Date(current_time).toLocaleString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    $('#year').html(formatted_time)
       .css('left', width/2 - 105)
       .css('top', height - 140);
   }
@@ -589,12 +608,12 @@ function Lineage() {
   }
 
   lin.setDate = function(value) {
-    current_time = new Date(value);
+    current_time = d2t(value);
     forceRefresh = true;
   }
 
   lin.moveYear = function(value) {
-    current_time += value
+    current_time += d2t(value);
     forceRefresh = true;
   }
 
