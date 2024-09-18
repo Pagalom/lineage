@@ -539,13 +539,13 @@ function Lineage() {
     context.moveTo(d.source.x, d.source.y);
     context.lineWidth = 1;
     switch (d.type) {
-      case 'epoux':
+      case "epoux":
         context.strokeStyle = '#FF0000';  // rouge pour epoux
         break;
-      case 'pere':
+      case "pere":
         context.strokeStyle = '#0000FF';  // bleu pour pere
         break;
-      case 'mere':
+      case "mere":
         context.strokeStyle = '#00FF00';  // rose pour mere
         break;
       default:
