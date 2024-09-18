@@ -1,32 +1,19 @@
 function Lineage() {
-  function showPopup(nodeData, x, y) {
-    // Crée un élément div pour le popup
-    var popup = document.createElement('div');
-    popup.classList.add('popup');  // Classe CSS pour styliser le popup
-    popup.style.position = 'absolute';
-    popup.style.left = x + 'px';  // Position en X
-    popup.style.top = y + 'px';   // Position en Y
-    popup.style.backgroundColor = '#fff';
-    popup.style.border = '1px solid #ccc';
-    popup.style.padding = '10px';
-    popup.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+  function showNodeDetails(nodeData) {
+    // Sélectionne la zone où les détails doivent être affichés
+    var detailsContent = document.getElementById('detailsContent');
     
-    // Ajoute des informations dans le popup
-    popup.innerHTML = `
+    // Met à jour le contenu de la barre latérale avec les informations du nœud
+    detailsContent.innerHTML = `
         <strong>${nodeData.name}</strong><br>
         <em>Né(e): ${new Date(nodeData.birthDate).toLocaleDateString()}</em><br>
-        ${nodeData.deathDate ? `<em>Mort(e): ${new Date(nodeData.deathDate).toLocaleDateString()}</em>` : ''}<br>
-        <button id="closePopup">Fermer</button>
+        ${nodeData.deathDate && nodeData.deathDate !== "-01-01T00:00:00.000Z" 
+            ? `<em>Mort(e): ${new Date(nodeData.deathDate).toLocaleDateString()}</em>` 
+            : `<em>Mort(e): Non précisé</em>`
+        }
     `;
-    
-    // Ajoute le popup au body
-    document.body.appendChild(popup);
-    
-    // Ajoute un événement pour fermer le popup
-    document.getElementById('closePopup').addEventListener('click', function() {
-        document.body.removeChild(popup);  // Supprime le popup
-    });
-  }
+}
+
 
   function lin(conf) {
     log("Initializing", config);
@@ -209,10 +196,12 @@ function Lineage() {
       hideMemberDetails(); 
     }
     else {
-      highlightNode(d, m);
-      d3.select('canvas').on('click', function() {
-        showPopup(d, m[0], m[1]);
-      });
+      highlightNode(d, m);  // Afficher les détails en survol
+        
+        // Remplacer l'appel à showPopup par showNodeDetails
+        d3.select('canvas').on('click', function() {
+            showNodeDetails(d);  // Affiche les détails dans la barre latérale
+        });
     }
   }
 
