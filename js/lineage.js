@@ -1,3 +1,5 @@
+console.log('test')
+
 function Lineage() {
 
   function lin(conf) {
