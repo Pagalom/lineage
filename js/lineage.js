@@ -81,7 +81,19 @@ function Lineage() {
       .attr("id", "screen")
       .attr("width", width)
       .attr("height", height);
-
+  // Étape 1 : Ajoute l'écouteur de clics sur le canvas
+  d3.select('canvas').on("click", function() {
+    // Obtenir les coordonnées du clic
+    var [mouseX, mouseY] = d3.mouse(this);
+    
+    // Parcourir les nœuds pour voir si le clic est proche de l'un d'eux
+    nodes.forEach(function(d) {
+      var distance = Math.sqrt(Math.pow(d.x - mouseX, 2) + Math.pow(d.y - mouseY, 2));
+      if (distance < 5) {  // Tolérance de 5px pour cliquer sur le nœud
+        showPopup(d, mouseX, mouseY);  // Appelle la fonction pour afficher le popup
+      }
+    });
+  });
   var audio = new Audio('music/graph.mp3');
   var yearIncrement = 0;
   var filters = $('#search').val();
@@ -587,17 +599,6 @@ function Lineage() {
   function drawNode(d) {
     context.moveTo(d.x, d.y);
     context.arc(d.x, d.y, 5, 0, 2 * Math.PI);
-    // Ajouter un événement de clic sur chaque nœud
-    d3.select(canvas)  // Sélectionne le canvas
-      .on("click", function() {
-        // Détecte si le clic est proche du nœud
-        var [mouseX, mouseY] = d3.mouse(this);
-        var distance = Math.sqrt(Math.pow(d.x - mouseX, 2) + Math.pow(d.y - mouseY, 2));
-        
-        if (distance < 5) {  // Si on clique sur un nœud (5px de tolérance)
-          showPopup(d, mouseX, mouseY);  // Appelle la fonction pour montrer le popup
-        }
-      });
   }
 
 
