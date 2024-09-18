@@ -92,9 +92,7 @@ function Lineage() {
   var interval = null;
   var mode = 'tree'
 
-  // Do i have to re-populate `nodes` and `links` in `loop()`?
   var forceRefresh = true;
-
 
   function initShowDead(value) {
     showDead = value;
@@ -212,6 +210,9 @@ function Lineage() {
     }
     else {
       highlightNode(d, m);
+      d3.select('canvas').on('click', function() {
+        showPopup(d, m[0], m[1]);
+      });
     }
   }
 
@@ -585,27 +586,10 @@ function Lineage() {
 
 
   function drawNode(d) {
+    console.log("Position du nœud", d.name, d.x, d.y);
     context.moveTo(d.x, d.y);
     context.arc(d.x, d.y, 5, 0, 2 * Math.PI);
   }
-
-  d3.select('canvas').on("click", function() {
-    // Obtenir les coordonnées du clic
-    var [mouseX, mouseY] = d3.mouse(this);
-    var rect = this.getBoundingClientRect();
-    mouseX = mouseX - rect.left;
-    mouseY = mouseY - rect.top;
-    console.log("Clic détecté à", mouseX, mouseY);
-    // Parcourir les nœuds pour voir si le clic est proche de l'un d'eux
-    nodes.forEach(function(d) {
-      var distance = Math.sqrt(Math.pow(d.x - mouseX, 2) + Math.pow(d.y - mouseY, 2));
-      console.log("Pour ", d, "distance : ", distance);
-      if (distance < 5) {  // Tolérance de 5px pour cliquer sur le nœud
-        console.log("Nœud cliqué:", d);
-        showPopup(d, mouseX, mouseY);  // Appelle la fonction pour afficher le popup
-      }
-    });
-  });
 
   function initNightMode() {
     $('#nightModeOn').on("change", function(event) {
