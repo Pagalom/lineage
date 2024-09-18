@@ -592,6 +592,9 @@ function Lineage() {
   d3.select('canvas').on("click", function() {
     // Obtenir les coordonnées du clic
     var [mouseX, mouseY] = d3.mouse(this);
+    var rect = this.getBoundingClientRect();
+    mouseX = mouseX - rect.left;
+    mouseY = mouseY - rect.top;
     console.log("Clic détecté à", mouseX, mouseY);
     // Parcourir les nœuds pour voir si le clic est proche de l'un d'eux
     nodes.forEach(function(d) {
