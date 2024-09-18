@@ -1,18 +1,55 @@
 function Lineage() {
   function showNodeDetails(nodeData) {
-    // Sélectionne la zone où les détails doivent être affichés
-    var detailsContent = document.getElementById('detailsContent');
+    // Sélectionne les éléments pour l'image, le nom, la biographie, etc.
+    var nodeName = document.getElementById('detailsName');
+    var birthDate = document.getElementById('birthDate');
+    var deathDate = document.getElementById('deathDate');
+    var nodePhoto = document.getElementById('nodePhoto');
+    var nodeBio = document.getElementById('nodeBio');
     
-    // Met à jour le contenu de la barre latérale avec les informations du nœud
-    detailsContent.innerHTML = `
-        <strong>${nodeData.name}</strong><br>
-        <em>Né(e): ${new Date(nodeData.birthDate).toLocaleDateString()}</em><br>
-        ${nodeData.deathDate && nodeData.deathDate !== "-01-01T00:00:00.000Z" 
-            ? `<em>Mort(e): ${new Date(nodeData.deathDate).toLocaleDateString()}</em>` 
-            : `<em>Mort(e): Non précisé</em>`
-        }
-    `;
-}
+    // Formater le nom, peu importe s'il y a un nom de famille ou non
+    var formattedName = formatName(nodeData.name);
+
+    // Mettre à jour le contenu avec le nom, la date de naissance et de décès
+    nodeName.innerHTML = formattedName;
+    birthDate.innerHTML = `Né(e): ${new Date(nodeData.birthDate).toLocaleDateString()}`;
+    deathDate.innerHTML = nodeData.deathDate && nodeData.deathDate !== "-01-01T00:00:00.000Z"
+        ? `Mort(e): ${new Date(nodeData.deathDate).toLocaleDateString()}`
+        : 'Mort(e): Non précisé';
+
+    // Mettre à jour la photo (vérifie si une image existe)
+    if (nodeData.photo) {
+      console.log("ok")
+        nodePhoto.src = nodeData.photo;
+    } else {
+        nodePhoto.src = 'data/img/anonyme.jpg';  // Image par défaut si aucune photo n'est fournie
+    }
+
+    // Mettre à jour la biographie (si disponible)
+    if (nodeData.bio) {
+        nodeBio.innerHTML = nodeData.bio;
+    } else {
+        nodeBio.innerHTML = 'Aucune biographie disponible pour ce personnage.';
+    }
+  }
+
+
+  function formatName(name) {
+    // Vérifie s'il y a une virgule pour séparer le nom et le prénom
+    if (name.includes(',')) {
+        var parts = name.split(','); 
+        var lastName = parts[0].trim();  // Nom de famille
+        var firstName = parts[1].trim(); // Prénom
+
+        // Formater le nom : prénom suivi du nom en majuscules
+        return `${firstName} ${lastName.toUpperCase()}`;
+    } else {
+        // Si pas de virgule, on retourne simplement le nom tel quel
+        return name;
+    }
+  }
+
+
 
 
   function lin(conf) {

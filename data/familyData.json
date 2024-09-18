@@ -6,7 +6,9 @@
             "gender": "M",
             "lastName": "Palpatine",
             "birthDate": "1875-01-01T00:00:00.000Z",
-            "deathDate": "1983-01-01T00:00:00.000Z"
+            "deathDate": "1983-01-01T00:00:00.000Z",
+            "bio": "ceci est un test de bio,ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bioceci est un test de bio,ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bioceci est un test de bio,ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bioceci est un test de bio,ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bioceci est un test de bio,ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bioceci est un test de bio,ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bioceci est un test de bio,ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio, ceci est un test de bio",
+            "photo": "data\\img\\palpatine_avv6.jpg"
         },
         {
             "id": 1,

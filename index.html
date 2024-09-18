@@ -35,8 +35,8 @@
     function toggleDetails() {
       detailsStatus = !detailsStatus;
       menu = d3.select('#nodeDetails');
-      left = detailsStatus ? '0px' : '-341px';
-      menu.transition().duration(500).style('right', left);
+      right = detailsStatus ? '0px' : '-431px';
+      menu.transition().duration(500).style('right', right);
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -116,9 +116,23 @@
 <!-- La barre latérale pour afficher les détails -->
 <div id="nodeDetails" class="sidebar-right">
   <button class="toggle__details" onClick="toggleDetails()">☰</button>
-  <h3>Détails du nœud</h3>
+  <div id="file" class="file-section">
+  <h3 id="detailsName">Détails du nœud</h3>
+
+  <div id="photoContainer" class="photo-section">
+    <img id="nodePhoto" src="data/img/anonyme.jpg" alt="Photo du personnage" style="width:100%; height:auto;">
+  </div>
+
   <div id="detailsContent">
-    <p>Cliquez sur un nœud pour voir les détails ici.</p>
+    <strong id="nodeName"></strong><br>
+    <em id="birthDate"></em><br>
+    <em id="deathDate"></em><br>
+  </div>
+
+  <div id="bioContainer" class="bio-section">
+    <h4>Biographie</h4>
+    <p id="nodeBio">La biographie apparaîtra ici...</p>
+  </div>
   </div>
 </div>
 

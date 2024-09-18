@@ -187,10 +187,10 @@ canvas {
 }
 #nodeDetails {
   position: absolute;
-  width: 340px;
+  width: 430px;
   height: 100%;
   top: 0px;
-  right: -341px;
+  right: -431px;
   z-index: 1;
   background-color: rgba(250,250,250,0.75);
 }
@@ -198,7 +198,7 @@ canvas {
 .toggle__details {
   position: absolute;
   top: 0px;
-  right: 341px;
+  right: 431px;
   z-index: 100;
   background-color: rgba(200,200,200,0.9);
   border: none;
@@ -208,4 +208,41 @@ canvas {
   text-decoration: none;
   display: inline-block;
   font-size: 32px;
+}
+
+/* Conteneur pour l'image */
+.photo-section {
+  margin-bottom: 20px;
+  width: 250px; /* Ajuste la largeur en fonction de l'encadré */
+  height: 300px; /* Ajuste la hauteur en fonction de l'encadré */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Image elle-même */
+#nodePhoto {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Garde les proportions de l'image */
+}
+
+
+/* Conteneur pour la biographie */
+.bio-section {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+/* Style pour la barre latérale */
+.sidebar-right {
+  padding: 20px;
+}
+
+/* Style pour la barre latérale */
+.file-section {
+  padding: 20px;
+  height: 90vh;
+  overflow-y: auto;  /* Active le défilement vertical si le contenu dépasse */
+  overflow-x: hidden;  /* Pas de défilement horizontal */
 }
