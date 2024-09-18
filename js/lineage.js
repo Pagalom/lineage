@@ -1,6 +1,32 @@
-console.log('test')
-
 function Lineage() {
+  function showPopup(nodeData, x, y) {
+    // Crée un élément div pour le popup
+    var popup = document.createElement('div');
+    popup.classList.add('popup');  // Classe CSS pour styliser le popup
+    popup.style.position = 'absolute';
+    popup.style.left = x + 'px';  // Position en X
+    popup.style.top = y + 'px';   // Position en Y
+    popup.style.backgroundColor = '#fff';
+    popup.style.border = '1px solid #ccc';
+    popup.style.padding = '10px';
+    popup.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+    
+    // Ajoute des informations dans le popup
+    popup.innerHTML = `
+        <strong>${nodeData.name}</strong><br>
+        <em>Né(e): ${new Date(nodeData.birthDate).toLocaleDateString()}</em><br>
+        ${nodeData.deathDate ? `<em>Mort(e): ${new Date(nodeData.deathDate).toLocaleDateString()}</em>` : ''}<br>
+        <button id="closePopup">Fermer</button>
+    `;
+    
+    // Ajoute le popup au body
+    document.body.appendChild(popup);
+    
+    // Ajoute un événement pour fermer le popup
+    document.getElementById('closePopup').addEventListener('click', function() {
+        document.body.removeChild(popup);  // Supprime le popup
+    });
+  }
 
   function lin(conf) {
     log("Initializing", config);
@@ -540,7 +566,6 @@ function Lineage() {
     context.beginPath();
     context.moveTo(d.source.x, d.source.y);
     context.lineWidth = 1;
-    console.log(d.relation);
     switch (d.relation) {
       case "epoux":
         context.strokeStyle = '#FF0000';  // rouge pour epoux
@@ -562,6 +587,17 @@ function Lineage() {
   function drawNode(d) {
     context.moveTo(d.x, d.y);
     context.arc(d.x, d.y, 5, 0, 2 * Math.PI);
+    // Ajouter un événement de clic sur chaque nœud
+    d3.select(canvas)  // Sélectionne le canvas
+      .on("click", function() {
+        // Détecte si le clic est proche du nœud
+        var [mouseX, mouseY] = d3.mouse(this);
+        var distance = Math.sqrt(Math.pow(d.x - mouseX, 2) + Math.pow(d.y - mouseY, 2));
+        
+        if (distance < 5) {  // Si on clique sur un nœud (5px de tolérance)
+          showPopup(d, mouseX, mouseY);  // Appelle la fonction pour montrer le popup
+        }
+      });
   }
 
 
