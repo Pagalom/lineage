@@ -584,7 +584,6 @@ function Lineage() {
 
 
   function drawNode(d) {
-    console.log("Position du nœud", d.name, d.x, d.y);
     context.moveTo(d.x, d.y);
     context.arc(d.x, d.y, 5, 0, 2 * Math.PI);
   }
