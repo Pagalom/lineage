@@ -538,7 +538,7 @@ function Lineage() {
     context.beginPath();
     context.moveTo(d.source.x, d.source.y);
     context.lineWidth = 1;
-    switch (d.type) {
+    switch (d.relation) {
       case "epoux":
         context.strokeStyle = '#FF0000';  // rouge pour epoux
         break;
