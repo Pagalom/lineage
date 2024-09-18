@@ -195,7 +195,7 @@ canvas {
   background-color: rgba(250,250,250,0.75);
 }
 
-.toggle__button {
+.toggle__details {
   position: absolute;
   top: 0px;
   right: 341px;
