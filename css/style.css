@@ -185,46 +185,27 @@ canvas {
   left: 0;
   z-index: 0;
 }
-/* Barre latérale de droite */
-.sidebar-right {
-  position: fixed;
-  top: 0;
-  right: -300px;  /* Hors de l'écran par défaut */
-  width: 300px;
+#nodeDetails {
+  position: absolute;
+  width: 340px;
   height: 100%;
-  background-color: #f4f4f4;
-  border-left: 1px solid #ccc;
-  padding: 20px;
-  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-  overflow-y: auto;
-  transition: right 0.3s ease;  /* Animation fluide pour l'ouverture/fermeture */
+  top: 0px;
+  right: -341px;
+  z-index: 1;
+  background-color: rgba(250,250,250,0.75);
 }
 
-/* Barre ouverte */
-.sidebar-right.open {
-  right: 0;  /* Barre devient visible */
-}
-
-/* Bouton pour ouvrir/fermer la barre latérale */
-.toggle-button-right {
-  position: fixed;
-  top: 20px;
-  right: 300px;  /* À la gauche de la barre latérale, quand fermée */
-  background-color: #333;
-  color: white;
+.toggle__button {
+  position: absolute;
+  top: 0px;
+  right: 341px;
+  z-index: 100;
+  background-color: rgba(200,200,200,0.9);
   border: none;
-  font-size: 30px;
-  cursor: pointer;
-  z-index: 1000;  /* Toujours au-dessus des autres éléments */
-  padding: 5px 10px;
-  transition: right 0.3s ease;  /* Se déplace avec la barre */
-}
-
-/* Quand la barre est ouverte, déplacer le bouton */
-.sidebar-right.open ~ .toggle-button-right {
-  right: 300px;  /* Ajuster la position du bouton à la gauche de la barre */
-}
-
-.toggle-button-right:hover {
-  background-color: #555;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
 }

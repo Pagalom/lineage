@@ -14,6 +14,7 @@
   <script>
     var lineage = null;
     var menuStatus = false;
+    var detailsStatus = false;
     function start() {
       $.getJSON("config/config.json", function(config) {
           config.startYear = isNaN(startYear) ? config.startYear : startYear;
@@ -30,6 +31,12 @@
       menu = d3.select('#menu');
       left = menuStatus ? '0px' : '-341px';
       menu.transition().duration(500).style('left', left);
+    }
+    function toggleDetails() {
+      detailsStatus = !detailsStatus;
+      menu = d3.select('#nodeDetails');
+      left = detailsStatus ? '0px' : '-341px';
+      menu.transition().duration(500).style('right', left);
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -106,11 +113,9 @@
   <div id="memberDetails">
     <div id="name"></div>
   </div>
-<!-- Bouton pour ouvrir/fermer la barre latérale -->
-<button id="toggleDetailsBar" class="toggle-button-right">&#9776;</button>
-
 <!-- La barre latérale pour afficher les détails -->
 <div id="nodeDetails" class="sidebar-right">
+  <button class="toggle__details" onClick="toggleDetails()">☰</button>
   <h3>Détails du nœud</h3>
   <div id="detailsContent">
     <p>Cliquez sur un nœud pour voir les détails ici.</p>
