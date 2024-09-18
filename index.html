@@ -53,35 +53,35 @@
       <div class="checkbox">
         <label class="options__label">
           <input type="checkbox" class="checkbox-lg" id="musicOn">
-          Music
+          Musique
         </label>
       </div>
       <div class="checkbox">
         <label type="options__label">
           <input type="checkbox" class="checkbox-lg" id="nightModeOn">
-          Night Mode
+          Mode Nuit
         </label>
       </div>
       <div class="checkbox">
         <label class="options__label">
           <input type="checkbox" class="checkbox-lg" id="showDead"
             onclick="lineage.setShowDead(this.checked);">
-            Show dead
+            Voir décédés
         </label>
       </div>
     </div>
     <div class="views">
       <button class="btn btn-default view__button"
         onClick="lineage.setMode('tree');">
-        Tree
+        Arbre
       </button>
       <button class="btn btn-default view__button"
         onClick="lineage.setMode('timeline');">
-        Timeline
+        Chronologie
       </button>
       <button class="btn btn-default view__button"
         onClick="lineage.setMode('cluster');">
-        Cluster
+        Groupement
       </button>
     </div>
     <div class="time">
@@ -89,7 +89,7 @@
         onClick="lineage.setYear(1800)">First</button>
       <button class="btn btn-default time__button" id="playButton"
         onClick="lineage.setYearIncrement(1);lineage.playMusic();">
-        Play
+        Lecture
       </button>
       <button class="btn btn-default time__button" id="stopButton"
         onClick="lineage.setYearIncrement(0);lineage.pauseMusic();">
@@ -97,7 +97,7 @@
       </button>
       <button class="btn btn-default time__button" id="lastButton"
         onClick="lineage.setYear(2024)">
-        Last
+        Dernier
       </button>
     </div>
     <input id="search" class="form-control input-lg"
