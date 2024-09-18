@@ -549,7 +549,7 @@ function Lineage() {
         context.strokeStyle = '#0000FF';  // bleu pour pere
         break;
       case "mere":
-        context.strokeStyle = '#00FF00';  // rose pour mere
+        context.strokeStyle = '#FFC0CB';  // rose pour mere
         break;
       default:
         context.strokeStyle = '#999999';  // gris par defaut
