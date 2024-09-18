@@ -102,25 +102,25 @@
             "source": 2,
             "target": 3,
             "color": "#CC0",
-            "relation": "spouse"
+            "relation": "epoux"
         },
         {
             "source": 2,
             "target": 1,
             "color": "#F39",
-            "relation": "mother"
+            "relation": "mere"
         },
         {
             "source": 3,
             "target": 2,
             "color": "#CC0",
-            "relation": "spouse"
+            "relation": "epoux"
         },
         {
             "source": 4,
             "target": 3,
             "color": "#F39",
-            "relation": "mother"
+            "relation": "mere"
         },
         {
             "source": 4,
@@ -144,19 +144,19 @@
             "source": 5,
             "target": 2,
             "color": "#39F",
-            "relation": "father"
+            "relation": "pere"
         },
         {
             "source": 8,
             "target": 2,
             "color": "#39F",
-            "relation": "father"
+            "relation": "pere"
         },
         {
             "source": 10,
             "target": 5,
             "color": "#CC0",
-            "relation": "spouse"
+            "relation": "epoux"
         }
     ]
 }
