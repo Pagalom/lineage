@@ -185,10 +185,11 @@ canvas {
   left: 0;
   z-index: 0;
 }
-.sidebar {
+/* Style pour la barre latérale de droite */
+.sidebar-right {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -300px;  /* Barre cachée par défaut */
   width: 300px;
   height: 100%;
   background-color: #f4f4f4;
@@ -196,16 +197,28 @@ canvas {
   padding: 20px;
   box-shadow: -2px 0 5px rgba(0,0,0,0.1);
   overflow-y: auto;
-}
-.sidebar h3 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  transition: right 0.3s ease;  /* Animation pour l'ouverture/fermeture */
 }
 
-#detailsContent {
-  font-family: Arial, sans-serif;
+/* Style pour la barre latérale quand elle est visible */
+.sidebar-right.open {
+  right: 0;  /* Quand la barre est ouverte, elle prend sa place */
 }
 
-#detailsContent p {
-  font-size: 1.1em;
+/* Style du bouton pour ouvrir/fermer la barre latérale */
+.toggle-button-right {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 1000;
+  padding: 5px 10px;
+}
+
+.toggle-button-right:hover {
+  background-color: #555;
 }

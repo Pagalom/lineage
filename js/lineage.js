@@ -81,6 +81,15 @@ function Lineage() {
 
   var forceRefresh = true;
 
+    // Sélectionne les éléments
+  var toggleButtonRight = document.getElementById('toggleDetailsBar');
+  var sidebarRight = document.getElementById('nodeDetails');
+
+  // Ajoute un événement de clic pour ouvrir/fermer la barre latérale
+  toggleButtonRight.addEventListener('click', function() {
+      sidebarRight.classList.toggle('open');  // Ajoute ou enlève la classe 'open'
+  });
+
   function initShowDead(value) {
     showDead = value;
     $('#showDead').prop('checked', showDead);
