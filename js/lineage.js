@@ -382,6 +382,7 @@ function Lineage() {
     data.links.forEach(function(link, index) {
       link.source = getNodeById(data.nodes, link.source);
       link.target = getNodeById(data.nodes, link.target);
+      link.type = getNodeById(data.nodes, link.relation);
     });
     return data;
   }
@@ -537,7 +538,19 @@ function Lineage() {
     context.beginPath();
     context.moveTo(d.source.x, d.source.y);
     context.lineWidth = 1;
-    context.strokeStyle = d.color;
+    switch (d.type) {
+      case 'epoux':
+        context.strokeStyle = '#FF0000';  // rouge pour epoux
+        break;
+      case 'enfants':
+        context.strokeStyle = '#0000FF';  // bleu pour pere
+        break;
+      case 'colleague':
+        context.strokeStyle = '#FFC0CB';  // rose pour mere
+        break;
+      default:
+        context.strokeStyle = '#999999';  // gris par defaut
+    }   
     context.lineTo(d.target.x, d.target.y);
     context.stroke();
   }

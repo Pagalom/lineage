@@ -126,19 +126,19 @@
             "source": 4,
             "target": 2,
             "color": "#39F",
-            "relation": "father"
+            "relation": "pere"
         },
         {
             "source": 5,
             "target": 10,
             "color": "#CC0",
-            "relation": "spouse"
+            "relation": "epoux"
         },
         {
             "source": 5,
             "target": 3,
             "color": "#F39",
-            "relation": "mother"
+            "relation": "mere"
         },
         {
             "source": 5,
